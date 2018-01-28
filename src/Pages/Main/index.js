@@ -1,6 +1,7 @@
 import React,{ Component } from 'react'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 import 'antd/dist/antd.css'
+import './main.css'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -11,14 +12,14 @@ export default class Main extends Component{
     <Header className="header">
       <div className="logo" />
       <Menu
-        theme="dark"
         mode="horizontal"
         defaultSelectedKeys={['2']}
         style={{ lineHeight: '64px' }}
+        className="topNav"
       >
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
+        <Menu.Item key="1"><Icon type="user"/>客户管理</Menu.Item>
+        <Menu.Item key="2"><Icon type="bank"/>网点管理</Menu.Item>
+        <Menu.Item key="3"><Icon type="area-chat"/>工作台</Menu.Item>
       </Menu>
     </Header>
     <Layout>
@@ -28,14 +29,15 @@ export default class Main extends Component{
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
+          theme="dark"
         >
-          <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
-            <Menu.Item key="1">option1</Menu.Item>
-            <Menu.Item key="2">option2</Menu.Item>
-            <Menu.Item key="3">option3</Menu.Item>
-            <Menu.Item key="4">option4</Menu.Item>
+          <SubMenu key="sub1" title={<span><Icon type="user" />客户资料</span>}>
+            <Menu.Item key="1">我的客户</Menu.Item>
+            <Menu.Item key="2">我关注的客户</Menu.Item>
+            <Menu.Item key="3">公海客户</Menu.Item>
+            <Menu.Item key="4">我下属的客户</Menu.Item>
           </SubMenu>
-          <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
+          <SubMenu key="sub2" title={<span><Icon type="laptop" />网点管理</span>}>
             <Menu.Item key="5">option5</Menu.Item>
             <Menu.Item key="6">option6</Menu.Item>
             <Menu.Item key="7">option7</Menu.Item>
@@ -49,13 +51,8 @@ export default class Main extends Component{
           </SubMenu>
         </Menu>
       </Sider>
-      <Layout style={{ padding: '0 24px 24px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+      <Layout style={{background:"#F3F4F5" }}>
+        <Content style={{ background: '#fff', margin: 24, minHeight: 280 }}>
           Content
         </Content>
       </Layout>

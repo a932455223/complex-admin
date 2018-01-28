@@ -12,7 +12,11 @@ router.get(['/','/user'],async ctx => {
 })
 
 
-app.use(webpackDevMiddleware(webpack(webpackConfig)))
+app.use(webpackDevMiddleware(webpack(webpackConfig),{
+	stats:{
+		colors:true
+	}
+}))
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)

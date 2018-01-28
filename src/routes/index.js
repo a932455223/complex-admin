@@ -31,6 +31,7 @@ export default class App extends Component{
 	}
 
 	render(){
-		return this.state.isAuth ? <Main/>:<h1>please login in.</h1>
+		// return this.state.isAuth ? <Main/>:<h1>please login in.</h1>
+		return <Route path="/" Component={Main} />
 	}
 }
