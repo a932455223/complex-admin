@@ -1,39 +1,41 @@
 import React,{ Component } from 'react'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
+import { Link } from 'react-router-dom'
 import 'antd/dist/antd.css'
 import './main.css'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 export default class Main extends Component{
-
+  
 	render(){
+    const navKeys = location.pathname.substr(1).split('/')
 		return (<Layout>
     <Header className="header">
       <div className="logo" />
       <Menu
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+        selectedKeys={[navKeys[0]]}
         style={{ lineHeight: '64px' }}
         className="topNav"
       >
-        <Menu.Item key="1"><Icon type="user"/>客户管理</Menu.Item>
-        <Menu.Item key="2"><Icon type="bank"/>网点管理</Menu.Item>
-        <Menu.Item key="3"><Icon type="area-chat"/>工作台</Menu.Item>
+        <Menu.Item key="customer"><Link to='/customer/my'><Icon type="user"/>客户管理</Link></Menu.Item>
+        <Menu.Item key="branches"><Link to='/branches'><Icon type="bank"/>网点管理</Link></Menu.Item>
+        <Menu.Item key="workspace"><Icon type="area-chat"/>工作台</Menu.Item>
       </Menu>
     </Header>
     <Layout>
       <Sider width={200} style={{ background: '#fff' }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={['1']}
+          selectedKeys={[navKeys[1]]}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
           theme="dark"
         >
           <SubMenu key="sub1" title={<span><Icon type="user" />客户资料</span>}>
-            <Menu.Item key="1">我的客户</Menu.Item>
-            <Menu.Item key="2">我关注的客户</Menu.Item>
+            <Menu.Item key="my"><Link to='/customer/my'>我的客户</Link></Menu.Item>
+            <Menu.Item key="focus"><Link to='/customer/focus'>我关注的客户</Link></Menu.Item>
             <Menu.Item key="3">公海客户</Menu.Item>
             <Menu.Item key="4">我下属的客户</Menu.Item>
           </SubMenu>

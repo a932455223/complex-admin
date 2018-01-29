@@ -7,16 +7,24 @@ const port = 3000
 const webpack = require('webpack')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 let webpackConfig = require('./webpack.config.js')
-router.get(['/','/user'],async ctx => {
-	await send(ctx,'./src/index.html')
-})
 
+app.use((ctx,next) => {
+	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branches','/customer/focus'].includes(ctx.path)){
+		ctx.path = '/'
+	}
+	next();
+})
 
 app.use(webpackDevMiddleware(webpack(webpackConfig),{
 	stats:{
 		colors:true
 	}
 }))
+
+router.get('/',ctx => {
+		ctx.body = ctx.webpack.fileSystem.readFileSync('./dist/index.html')
+})
+
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)
