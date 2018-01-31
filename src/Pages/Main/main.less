@@ -1,0 +1,137 @@
+.logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, .2);
+    margin: 16px 28px 16px 0;
+    float: left;
+}
+@gray:#BCBCBC;
+
+html,
+body,
+#root,
+.ant-layout {
+    height: 100%;
+}
+
+#root {
+    .ant-btn-primary {
+        background: #5C6BC0;
+    }
+		.ant-tag{
+			background:#fff;
+			border-radius:2px;
+		}
+    .header {
+        background: #5A66C6;
+        .topNav {
+            background: inherit;
+            color: #fff;
+        }
+        .ant-menu-item-selected,
+        .ant-menu-item-active {
+            color: #fff;
+            border-bottom: #fff;
+            background: #505BB1;
+        }
+        .ant-btn-primary {
+            background: #5C6BC0;
+        }
+    }
+}
+
+.ant-menu-horizontal>.ant-menu-item>a:hover,
+.ant-menu-horizontal>.ant-menu-submenu>a:hover {
+    color: inherit;
+}
+
+.ant-menu-horizontal>.ant-menu-item>a,
+.ant-menu-horizontal>.ant-menu-submenu>a {
+    color: inherit;
+}
+
+.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub {
+    background: #2A3139;
+}
+
+
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected {
+    position: relative;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected::before {
+    display: block;
+    content: '';
+    width: 4px;
+    height: 14px;
+    border-radius: 3px;
+    background: #F5A640;
+    position: absolute;
+    top: 50%;
+    transform: translate(-10px, -50%);
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected {
+    background: #1E2329;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    background: #2A3139;
+}
+
+.main {
+    margin: 24px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+
+.contentWrap {
+    .topBox {
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        flex-flow:row wrap;
+        .customerList {
+            font-size: 18px;
+            font-weight: bold;
+            padding-right: 14px;
+        }
+
+        .filterHandler {
+            border-left: 1px solid rgb(240,240,240);
+            padding-left: 14px;
+            color: #FFA102;
+            position: relative;
+            height: 16px;
+        }
+
+        .filterHandler::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 0;
+            width: 0;
+        }
+
+        .searchBox {
+            margin: 0 auto 0 15px;
+        }
+
+        .searchBox .ant-input {
+            border-radius: 15px;
+        }
+
+        .filterItem{
+        	display: flex;
+        	padding:0 10px 2px 0;
+            .category{
+                color:#BCBCBC;
+                font-size:14px;
+            }
+        }
+    }
+}

@@ -9,7 +9,7 @@ const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 let webpackConfig = require('./webpack.config.js')
 
 app.use((ctx,next) => {
-	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branches','/customer/focus'].includes(ctx.path)){
+	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branch/list','/customer/focus'].includes(ctx.path)){
 		ctx.path = '/'
 	}
 	next();
