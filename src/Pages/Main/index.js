@@ -8,7 +8,11 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 export default class Main extends Component{
-  
+
+    componentWillMount(){
+        
+    }
+
 	render(){
     const navKeys = location.pathname.substr(1).split('/')
 		return (<Layout>
