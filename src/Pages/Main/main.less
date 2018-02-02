@@ -88,6 +88,8 @@ html {
     margin: 24px;
     border-radius: 3px;
     background: #fff;
+    border:1px solid @gray;
+    box-shadow:0 0 3px 0 #ddd;
 }
 
 .contentWrap {
@@ -109,6 +111,24 @@ html {
             color: #FFA102;
             position: relative;
             height: 16px;
+            .filterbox{
+                width:400px;
+                max-height: 400px;
+                position:absolute;
+                z-index:10;
+                background:#fff;
+                border-radius:3px;
+                border:1px solid @gray;
+                box-shadow:0 0 3px 0 #ddd;
+                padding:10px;
+                transform:translateY(15px);
+                .title{
+                
+                }
+                .ant-tag{
+                    border:none;
+                }
+            }
         }
 
         .filterHandler::after {
@@ -131,7 +151,6 @@ html {
         .filterItem {
             display: flex;
             padding: 0 10px 2px 0;
-
             .category {
                 color: #BCBCBC;
                 font-size: 14px;

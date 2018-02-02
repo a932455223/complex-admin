@@ -87,13 +87,23 @@ export default class DataTable extends Component{
 		return (
 			<div className="contentWrap">
 				<div className="topBox">
-					<div className="customerList">客户列表</div><div className="filterHandler">高级筛选</div>
+					<div className="customerList">客户列表</div>
+					<div className="filterHandler">
+						高级筛选
+						<div className="filterbox">
+							<div>
+								<h4 className="title"><span>.</span>客户类型</h4>
+								<Tag>个人客户</Tag>
+								<Tag>企业客户</Tag>
+							</div>
+						</div>
+					</div>
 					<div className="searchBox">
 					<Search
-			      placeholder="客户名或手机号"
-			      onSearch={value => console.log(value)}
-			      style={{ width: 200 }}
-			    />
+				      placeholder="客户名或手机号"
+				      onSearch={value => console.log(value)}
+				      style={{ width: 200 }}
+			    	/>
 			    </div>
 			    <Button type="primary" icon="plus">创建客户</Button>
 				</div>

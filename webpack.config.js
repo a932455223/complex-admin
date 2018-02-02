@@ -1,7 +1,8 @@
-let HtmlWebpackPlugin = require('html-webpack-plugin')
-let LessPluginAutoPrefix = require('less-plugin-autoprefix')
-let autoprefix = new LessPluginAutoPrefix({browsers:["last 2 versions"]})
-let path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const LessPluginAutoPrefix = require('less-plugin-autoprefix')
+const autoprefix = new LessPluginAutoPrefix({browsers:["last 2 versions"]})
+const path = require('path')
+const webpack = require('webpack');
 
 module.exports = {
 	entry:{
@@ -10,7 +11,7 @@ module.exports = {
 	output:{
 		publicPath:'/',
 		path:path.resolve(__dirname,'./dist'),
-		filename:'[name].[chunkhash].js',
+		filename:'[name].[chunk].js',
 		chunkFilename:'[name].[chunkhash:8].js'
 	},
 	resolve:{
@@ -52,5 +53,7 @@ module.exports = {
 	},
 	plugins:[new HtmlWebpackPlugin({
 		template:'./src/index.ftl'
-	})]
+	}),
+	new webpack.HotModuleReplacementPlugin()
+]
 }
