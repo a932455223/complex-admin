@@ -10,7 +10,7 @@ const { Header, Content, Sider } = Layout;
 export default class Main extends Component{
 
     componentWillMount(){
-        
+
     }
 
 	render(){
