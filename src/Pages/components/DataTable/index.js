@@ -10,11 +10,11 @@ const filterData = {
 		options:[{id:1,text:'个人客户'},{id:2,text:'企业客户'}]
 	},{
 		filterText:'评级',
-		paramName:'lever',
+		paramName:'customerLever',
 		options:[{id:3,text:'普通客户'},{id:4,text:'VIP客户'},{id:5,text:'未激活客户'}]
 	},{
 		filterText:'风险偏好',
-		paramName:'riskPreference',
+		paramName:'customerRiskPreference',
 		options:[{id:6,text:'保守型'},{id:7,text:'激进型'},{id:8,text:'稳健性'}]
 	}]
 }
