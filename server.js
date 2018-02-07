@@ -23,11 +23,11 @@ app.use(async (ctx,next) => {
 	await next();
 })
 
-// app.use(webpackDevMiddleware(webpack(webpackConfig),{
-// 	stats:{
-// 		colors:true
-// 	}
-// }))
+app.use(webpackDevMiddleware(webpack(webpackConfig),{
+	stats:{
+		colors:true
+	}
+}))
 
 app.use(async (ctx,next) => {
 	ctx.db = await sqlite3('./src/DataBase/crm.db')
