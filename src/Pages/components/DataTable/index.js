@@ -101,6 +101,7 @@ const columns = [
 const paginationConfig = {
     size: 'small'
 }
+
 export default class DataTable extends Component {
 
     state = {
@@ -110,7 +111,10 @@ export default class DataTable extends Component {
         filterData: []
     }
 
-    onSelectChange = () => {}
+    onSelectChange = (keys,rows) => {
+        console.log(keys)
+        console.log(rows)
+    }
 
     onTableChange = (pagination, filter, sorter) => {
         console.log(pagination)
@@ -167,6 +171,10 @@ export default class DataTable extends Component {
 	contentClick = ()=>{
 		this.state.openFilter && this.setState({openFilter:false})
 	}
+
+    rowClick(record,index){
+        
+    }
     render() {
         const rowSelection = {
             selectedRowKeys: this.state.selectedRowKeys,
@@ -178,7 +186,7 @@ export default class DataTable extends Component {
                 <div className="customerList">客户列表</div>
                 <div className="filterHandler">
                     <span onClick={this.openFilter}>高级筛选</span>
-                    <div className={classNames('filterbox', {active: this.state.openFilter})}>
+                    <div className={classNames('filterbox', {active: this.state.openFilter})} onClick={(evt)=>{evt.stopPropagation()}}>
                         {
                             this.state.filterData.length > 0 && this.state.filterData.map((fliter, index) => {
                                 return (<div key={fliter.paramName}>
@@ -213,7 +221,7 @@ export default class DataTable extends Component {
 	                </div>)
 				})}
             </div>
-            <Table className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
+            <Table onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.key} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
         </div>)
     }
 }
