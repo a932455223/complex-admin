@@ -6,6 +6,7 @@
     float: left;
 }
 @gray: rgb(230,230,230);
+@darkGray:#D2D2D2;
 
 #root,
 .ant-layout,
@@ -197,4 +198,61 @@ html {
             // border-right: 1px solid @gray;
         }
     }
+}
+
+#docker{
+    width:600px;
+    border:1px solid #ccc;
+    position:absolute;
+    height:100%;
+    right:0;
+    top:0;
+    .dockerContent{
+        background:@gray;
+        height:100%;
+        padding:8px 10px;
+        .header{
+            display: flex;
+            align-items: center;
+            .icon{
+                color:#fff;
+                background:@darkGray;
+                font-size:25px;
+                height:30px;
+                width:30px;
+                border-radius:50%;
+                text-align:center;
+                margin-right:10px;
+            }
+
+            .text{
+                font-weight:bold;
+            }
+
+            .operation{
+                margin-left:auto;
+            }
+        }
+
+        .formcontainer{
+            .ant-form-item-label{
+                text-align: left;
+            }
+        }
+
+        .createCustomer{
+            padding-top:22px;
+            input::placeholder{
+                color:#555;
+            }
+        }
+
+        .darkGray{
+            background:@darkGray;
+            border:none;
+            height:30px;
+        }
+    }
+
+
 }

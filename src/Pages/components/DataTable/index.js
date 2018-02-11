@@ -3,6 +3,9 @@ import {Input, Button, Tag, Table} from 'antd'
 import classNames from 'classnames'
 import request from '../../../utils/request'
 import update from 'immutability-helper'
+import CusomerCreate from '../../Customer/Create'
+import Docker from '../Docker'
+
 const Search = Input.Search;
 const {CheckableTag} = Tag
 const filterData = {
@@ -173,7 +176,7 @@ export default class DataTable extends Component {
 	}
 
     rowClick(record,index){
-        
+
     }
     render() {
         const rowSelection = {
@@ -222,6 +225,9 @@ export default class DataTable extends Component {
 				})}
             </div>
             <Table onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.key} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
+            <Docker>
+                <CusomerCreate />
+            </Docker>
         </div>)
     }
 }
