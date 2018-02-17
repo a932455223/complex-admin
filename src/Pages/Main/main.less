@@ -231,6 +231,16 @@ html {
 
             .operation{
                 margin-left:auto;
+                position:relative;
+                .heart{
+                    width:60px;
+                    height:60px;
+                    position:absolute;
+                    background: url(../../static/images/web_heart_animation.png);
+                    background-size:2900%;
+                    background-position:left;
+                    transform:translate(-50%,-50%);
+                }
             }
         }
 
@@ -257,15 +267,17 @@ html {
             border:1px solid #D3D3D3;
             border-radius:3px;
             padding-top:1px;
-            .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active{
-                color:#FFA102;
-                border-bottom:1px solid #fff;
-            }
+
             .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab{
                 margin-right:0;
                 border-radius:0;
                 border:none;
                 border-right:1px solid #e8e8e8;
+            }
+
+            .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active{
+                color:#FFA102;
+                border-bottom:1px solid #fff;
             }
         }
 
@@ -284,5 +296,40 @@ html {
         }
     }
 
+    ul.timeline{
+        list-style:none;
+        padding:35px;
+        &>li{
+            display:flex;
+            .line{
+                width:1px;
+                margin:0.5em 8px 0 5px;
+                background:@gray;
+                &::before{
+                    content:' ';
+                    display: block;
+                    width:14px;
+                    height:14px;
+                    border-radius:50%;
+                    border:2px solid #fff;
+                    background:#FFA102;
+                    transform:translate(-50%,-50%);
+                }
+            }
+
+            .time{
+                width:100px;
+            }
+
+            p.content{
+                color:@darkGray;
+            }
+            p.details{
+                background:@gray;
+                padding:8px;
+                border-radius:2px;
+            }
+        }
+    }
 
 }

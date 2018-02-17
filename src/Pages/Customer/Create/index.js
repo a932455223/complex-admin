@@ -49,7 +49,7 @@ class CustomerUpdate extends Component {
             <div className="header">
                 <div className="icon"><Icon type="user"/></div>
                 <span className="text">创建客户</span>
-                <div className="operation">关注提醒</div>
+                <div className="operation"><div className="heart"></div>关注</div>
             </div>
             {
                 this.state.createModel && <div className="createCustomer">
@@ -82,7 +82,21 @@ class CustomerUpdate extends Component {
                     </div>
                     <div className="recordContainer">
                     <Tabs type="card" defaultActiveKey="1" onChange={this.onRecordChange}>
-                        <TabPane tab="维护记录" key="1">Content of Tab Pane 1</TabPane>
+                        <TabPane tab="维护记录" key="1">
+                            <ul className="timeline">
+                                <li>
+                                    <div className="line"></div>
+                                    <div className="time">今天</div>
+                                    <div>
+                                        闫晓飞
+                                        <p className="content">【电话】进行了3次【产品到期提醒】</p>
+                                        <p className="details">
+                                            介绍理财产品，制定理财计划书，客户下单。
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </TabPane>
                         <TabPane tab="操作记录" key="2">Content of Tab Pane 2</TabPane>
                         <TabPane tab="修改记录" key="3">Content of Tab Pane 3</TabPane>
                     </Tabs>

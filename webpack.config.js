@@ -11,7 +11,7 @@ module.exports = {
 	output:{
 		publicPath:'/',
 		path:path.resolve(__dirname,'./dist'),
-		filename:'[name].[chunk].js',
+		filename:'[name].js',
 		chunkFilename:'[name].[chunkhash:8].js'
 	},
 	resolve:{
@@ -47,6 +47,14 @@ module.exports = {
 				loader:'style-loader'
 			},{
 				loader:'css-loader'
+			}]
+		},{
+			test:/\.(png|jpg|jpeg|gif)/,
+			use:[{
+				loader:'url-loader',
+				options:{
+					limit:8192
+				}
 			}]
 		}
 		]
