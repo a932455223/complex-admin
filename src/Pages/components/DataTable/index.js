@@ -111,7 +111,8 @@ export default class DataTable extends Component {
         selectedRowKeys: [],
         selectedFilter: [],
         openFilter: false,
-        filterData: []
+        filterData: [],
+        isOpen:false
     }
 
     onSelectChange = (keys,rows) => {
@@ -176,8 +177,13 @@ export default class DataTable extends Component {
 	}
 
     rowClick(record,index){
-
+        this.setState({isOpen:true})
     }
+
+    closeDocker = () =>{
+        this.setState({isOpen:false})
+    }
+
     render() {
         const rowSelection = {
             selectedRowKeys: this.state.selectedRowKeys,
@@ -225,8 +231,8 @@ export default class DataTable extends Component {
 				})}
             </div>
             <Table onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.key} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
-            <Docker>
-                <CusomerCreate />
+            <Docker open={this.state.isOpen}>
+                <CusomerCreate closeDocker={this.closeDocker}/>
             </Docker>
         </div>)
     }

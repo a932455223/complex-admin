@@ -18,6 +18,10 @@ class CustomerUpdate extends Component {
     onEnter = (evt) => {
         message.success('创建成功')
     }
+
+    onClose = (evt) => {
+        this.props.closeDocker()
+    }
     render() {
 
         const {getFieldDecorator} = this.props.form
@@ -49,7 +53,7 @@ class CustomerUpdate extends Component {
             <div className="header">
                 <div className="icon"><Icon type="user"/></div>
                 <span className="text">创建客户</span>
-                <div className="operation"><div className="heart"></div>关注</div>
+                <div className="operation"><div onClick={this.onClose} className="close"><Icon type="close"/>关闭</div></div>
             </div>
             {
                 this.state.createModel && <div className="createCustomer">
