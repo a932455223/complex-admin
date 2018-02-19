@@ -112,7 +112,8 @@ export default class DataTable extends Component {
         selectedFilter: [],
         openFilter: false,
         filterData: [],
-        isOpen:false
+        isOpen:false,
+        createModel:false
     }
 
     onSelectChange = (keys,rows) => {
@@ -184,6 +185,9 @@ export default class DataTable extends Component {
         this.setState({isOpen:false})
     }
 
+    addCustomer = ()=>{
+        this.setState({isOpen:true,createModel:true})
+    }
     render() {
         const rowSelection = {
             selectedRowKeys: this.state.selectedRowKeys,
@@ -216,7 +220,7 @@ export default class DataTable extends Component {
                             width: 200
                         }}/>
                 </div>
-                <Button type="primary" icon="plus">创建客户</Button>
+                <Button type="primary" onClick={this.addCustomer} icon="plus">创建客户</Button>
             </div>
             <div style={{
                     borderTop: "1px solid rgb(230,230,230)"
@@ -232,7 +236,7 @@ export default class DataTable extends Component {
             </div>
             <Table onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.key} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
             <Docker open={this.state.isOpen}>
-                <CusomerCreate closeDocker={this.closeDocker}/>
+                <CusomerCreate createModel={this.state.createModel} closeDocker={this.closeDocker}/>
             </Docker>
         </div>)
     }

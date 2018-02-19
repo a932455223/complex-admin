@@ -56,14 +56,14 @@ class CustomerUpdate extends Component {
                 <div className="operation"><div onClick={this.onClose} className="close"><Icon type="close"/>关闭</div></div>
             </div>
             {
-                this.state.createModel && <div className="createCustomer">
+                this.props.createModel && <div className="createCustomer">
                         <Input onPressEnter={this.onEnter} placeholder="输入客户名并按Enter" value={this.state.customerName} onChange={this.onChange} className="darkGray"/>
                     </div>
             }
             <Tabs defaultActivity="basicInfo">
                 <TabPane tab="基础信息"  key="basicInfo">
                 {
-                    this.state.createModel || (
+                    this.props.createModel || (
                     <Fragment>
                     <div  className="formcontainer">
                         <Form layout="inline">
@@ -112,10 +112,6 @@ class CustomerUpdate extends Component {
                 <TabPane tab="家庭信息" key="familyInfo">fff</TabPane>
                 <TabPane tab="工作信息" key="workInfo">gggg</TabPane>
             </Tabs>
-
-
-
-
         </div>)
     }
 }
