@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Icon, Input, message, Form,Tabs,DatePicker} from 'antd'
+import request from '../../../utils/request.js'
 const TabPane = Tabs.TabPane
 const Fragment = React.Fragment
 const FormItem = Form.Item
@@ -16,7 +17,15 @@ class CustomerUpdate extends Component {
         this.setState({customerName: value})
     }
     onEnter = (evt) => {
-        message.success('创建成功')
+        let {value} = evt.target
+        if(value.trim() ===''){
+            message.warn('客户名不能为空')
+        }
+        
+        request.Post('/customer',{name:value}).then(()=>{
+            message.success('客户创建成功')
+        })
+
     }
 
     onClose = (evt) => {
@@ -60,11 +69,9 @@ class CustomerUpdate extends Component {
                         <Input onPressEnter={this.onEnter} placeholder="输入客户名并按Enter" value={this.state.customerName} onChange={this.onChange} className="darkGray"/>
                     </div>
             }
-            <Tabs defaultActivity="basicInfo">
-                <TabPane tab="基础信息"  key="basicInfo">
-                {
-                    this.props.createModel || (
-                    <Fragment>
+            {
+                !this.props.createModel && (<Tabs defaultActivity="basicInfo">
+                    <TabPane tab="基础信息"  key="basicInfo">
                     <div  className="formcontainer">
                         <Form layout="inline">
                             <FormItem className="fullLine" {...formLayout} label="账户">
@@ -105,13 +112,11 @@ class CustomerUpdate extends Component {
                         <TabPane tab="修改记录" key="3">Content of Tab Pane 3</TabPane>
                     </Tabs>
                     </div>
-                    </Fragment>
-                )
-                }
-                </TabPane>
-                <TabPane tab="家庭信息" key="familyInfo">fff</TabPane>
-                <TabPane tab="工作信息" key="workInfo">gggg</TabPane>
-            </Tabs>
+                    </TabPane>
+                    <TabPane tab="家庭信息" key="familyInfo">fff</TabPane>
+                    <TabPane tab="工作信息" key="workInfo">gggg</TabPane>
+                </Tabs>)
+            }
         </div>)
     }
 }

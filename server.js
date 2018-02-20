@@ -4,6 +4,7 @@ const path = require('path')
 const sqlite3 = require('co-sqlite3')
 const router = require('koa-router')()
 const logger = require('koa-logger')
+const bodyParse = require('koa-bodyparser')
 const _ = require('lodash')
 const app = new Koa()
 const port = 3000
@@ -11,10 +12,12 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 let webpackConfig = require('./webpack.config.js')
 app.use(logger())
+app.use(bodyParse())
 
 const filterMapping = {
 	customer:[1,2,3]
 }
+
 
 app.use(async (ctx,next) => {
 	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branch/list','/customer/focus'].includes(ctx.path)){
@@ -71,10 +74,40 @@ router.get('/filter/:type',async (ctx) => {
 	ctx.body = data
 })
 
+router.post('/customer',async (ctx,next)=>{
+	let data = ctx.request.body
+	if(data.name.trim() === ''){
+		ctx.body = {
+			code:500,
+			message:'客户姓名不能为空',
+			data:{}
+		}
+	}else{
+		let cmd = await ctx.db.prepare('insert into customer(name) values(?)',[data.name])
+		cmd.run()
+		ctx.body = {
+			code:200,
+			message:'success',
+			data:{}
+		}
+	}
+
+	await next()
+})
+
 router.get('/user',async (ctx,next) => {
 	let data = await ctx.db.all('select * from user;')
 	ctx.body = data
+	await next()
 })
+
+router.get('/customers',async (ctx,next)=>{
+	let data = await ctx.db.all('select * from customer')
+	ctx.body = data
+	await next()
+
+})
+
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)

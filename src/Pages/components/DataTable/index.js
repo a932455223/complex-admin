@@ -178,7 +178,7 @@ export default class DataTable extends Component {
 	}
 
     rowClick(record,index){
-        this.setState({isOpen:true})
+        this.setState({isOpen:true,createModel:false})
     }
 
     closeDocker = () =>{
