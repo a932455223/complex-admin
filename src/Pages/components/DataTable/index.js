@@ -88,16 +88,16 @@ const columns = [
     {
         title: '姓名',
         dataIndex: 'name',
-        key: 'name'
     }, {
         title: '年龄',
         dataIndex: 'age',
-        key: 'age',
         sorter: true
     }, {
         title: '住址',
         dataIndex: 'address',
-        key: 'address'
+    },{
+        title:'手机号',
+        dataIndex:'phoneNumber',
     }
 ];
 
@@ -113,7 +113,9 @@ export default class DataTable extends Component {
         openFilter: false,
         filterData: [],
         isOpen:false,
-        createModel:false
+        rowData:{},
+        createModel:false,
+        tableLoading:false
     }
 
     onSelectChange = (keys,rows) => {
@@ -165,6 +167,10 @@ export default class DataTable extends Component {
         request.Get('/filter/customer').then((response) => {
             this.setState({filterData: response.data.customer})
         })
+        this.setState({tableLoading:true})
+        request.Get('/customers').then((response)=>{
+            this.setState({dataSource:response.data,tableLoading:false})
+        })
     }
 	isFilterChecked = (index,id)=>{
 		if(!this.state.selectedFilter[index]){
@@ -178,7 +184,7 @@ export default class DataTable extends Component {
 	}
 
     rowClick(record,index){
-        this.setState({isOpen:true,createModel:false})
+        this.setState({isOpen:true,createModel:false,rowData:record})
     }
 
     closeDocker = () =>{
@@ -234,9 +240,9 @@ export default class DataTable extends Component {
 	                </div>)
 				})}
             </div>
-            <Table onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.key} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={dataSource} columns={columns} pagination={paginationConfig}/>
+            <Table loading={this.state.tableLoading} onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.id.toString()} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={this.state.dataSource} columns={columns} pagination={paginationConfig}/>
             <Docker open={this.state.isOpen}>
-                <CusomerCreate createModel={this.state.createModel} closeDocker={this.closeDocker}/>
+                <CusomerCreate rowData={this.state.rowData} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
             </Docker>
         </div>)
     }

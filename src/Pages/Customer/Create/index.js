@@ -9,7 +9,7 @@ class CustomerUpdate extends Component {
         customerName: '',
         createModel: false
     }
-    onRecordChange = (evt) =>{
+    onTabsChange = (evt) =>{
 
     }
     onChange = (evt) => {
@@ -21,7 +21,7 @@ class CustomerUpdate extends Component {
         if(value.trim() ===''){
             message.warn('客户名不能为空')
         }
-        
+
         request.Post('/customer',{name:value}).then(()=>{
             message.success('客户创建成功')
         })
@@ -32,7 +32,6 @@ class CustomerUpdate extends Component {
         this.props.closeDocker()
     }
     render() {
-
         const {getFieldDecorator} = this.props.form
         const formLayout = {
             labelCol: {
@@ -72,8 +71,9 @@ class CustomerUpdate extends Component {
             {
                 !this.props.createModel && (<Tabs defaultActivity="basicInfo">
                     <TabPane tab="基础信息"  key="basicInfo">
-                    <div  className="formcontainer">
-                        <Form layout="inline">
+                    {this.props.rowData.id &&
+                    (<div key={this.props.rowData.id.toString()} className="formcontainer">
+                            <Form layout="inline">
                             <FormItem className="fullLine" {...formLayout} label="账户">
                                 {getFieldDecorator('account')(<Input placeholder="一类账户"/>)}
                             </FormItem>
@@ -90,9 +90,10 @@ class CustomerUpdate extends Component {
                                 {getFieldDecorator('identity')(<Input placeholder="输入身份证"/>)}
                             </FormItem>
                         </Form>
-                    </div>
+                    </div>)
+                }
                     <div className="recordContainer">
-                    <Tabs type="card" defaultActiveKey="1" onChange={this.onRecordChange}>
+                    <Tabs type="card" defaultActiveKey="1" onChange={this.onTabsChange}>
                         <TabPane tab="维护记录" key="1">
                             <ul className="timeline">
                                 <li>
