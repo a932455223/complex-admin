@@ -4,34 +4,9 @@ import request from '../../../utils/request.js'
 const TabPane = Tabs.TabPane
 const Fragment = React.Fragment
 const FormItem = Form.Item
-class CustomerUpdate extends Component {
-    state = {
-        customerName: '',
-        createModel: false
-    }
-    onTabsChange = (evt) =>{
 
-    }
-    onChange = (evt) => {
-        let {value} = evt.target
-        this.setState({customerName: value})
-    }
-    onEnter = (evt) => {
-        let {value} = evt.target
-        if(value.trim() ===''){
-            message.warn('客户名不能为空')
-        }
-
-        request.Post('/customer',{name:value}).then(()=>{
-            message.success('客户创建成功')
-        })
-
-    }
-
-    onClose = (evt) => {
-        this.props.closeDocker()
-    }
-    render() {
+class CustomerUpdate extends Component{
+    render(){
         const {getFieldDecorator} = this.props.form
         const formLayout = {
             labelCol: {
@@ -57,6 +32,71 @@ class CustomerUpdate extends Component {
                 }
             }
         }
+
+        return (<Form layout="inline">
+            <FormItem className="fullLine" {...formLayout} label="账户">
+                {getFieldDecorator('account')(<Input placeholder="一类账户"/>)}
+            </FormItem>
+            <FormItem  {...multiFormLayout} label="生&nbsp;&nbsp;&nbsp;&nbsp;日">
+                {getFieldDecorator('birthday')(<DatePicker getCalendarContainer={(evt) => {return document.getElementById('docker')}}/>)}
+            </FormItem>
+            <FormItem   {...multiFormLayout} label="手机号">
+                {getFieldDecorator('mobile')(<Input placeholder="输入手机号"/>)}
+            </FormItem>
+            <FormItem  {...multiFormLayout} label="微信号">
+                {getFieldDecorator('weichat')(<Input placeholder="输入微信号"/>)}
+            </FormItem>
+            <FormItem  {...multiFormLayout} label="身份证">
+                {getFieldDecorator('identity')(<Input placeholder="输入身份证"/>)}
+            </FormItem>
+        </Form>)
+    }
+}
+
+const CustomerUpdateForm = Form.create()(CustomerUpdate)
+
+class Customer extends Component {
+    state = {
+        customerName: '',
+        createModel: false
+    }
+    onTabsChange = (evt) =>{
+
+    }
+
+    shouldComponentUpdate = (nextProps,nextState)=>{
+        if(nextProps.rowData.id && nextProps.rowData.id !==this.props.rowData.id){
+            return true
+        }
+        return false
+    }
+
+    componentWillReceiveProps = () => {
+        console.log('com com go go go.')
+    }
+
+
+    onChange = (evt) => {
+        let {value} = evt.target
+        this.setState({customerName: value})
+    }
+    onEnter = (evt) => {
+        let {value} = evt.target
+        if(value.trim() ===''){
+            message.warn('客户名不能为空')
+        }
+
+        request.Post('/customer',{name:value}).then(()=>{
+            message.success('客户创建成功')
+        })
+
+    }
+
+    onClose = (evt) => {
+        this.props.closeDocker()
+    }
+    render() {
+
         return (<div className="userInfo">
             <div className="header">
                 <div className="icon"><Icon type="user"/></div>
@@ -72,26 +112,10 @@ class CustomerUpdate extends Component {
                 !this.props.createModel && (<Tabs defaultActivity="basicInfo">
                     <TabPane tab="基础信息"  key="basicInfo">
                     {this.props.rowData.id &&
-                    (<div key={this.props.rowData.id.toString()} className="formcontainer">
-                            <Form layout="inline">
-                            <FormItem className="fullLine" {...formLayout} label="账户">
-                                {getFieldDecorator('account')(<Input placeholder="一类账户"/>)}
-                            </FormItem>
-                            <FormItem  {...multiFormLayout} label="生&nbsp;&nbsp;&nbsp;&nbsp;日">
-                                {getFieldDecorator('birthday')(<DatePicker getCalendarContainer={(evt) => {return document.getElementById('docker')}}/>)}
-                            </FormItem>
-                            <FormItem  {...multiFormLayout} label="手机号">
-                                {getFieldDecorator('mobile')(<Input placeholder="输入手机号"/>)}
-                            </FormItem>
-                            <FormItem  {...multiFormLayout} label="微信号">
-                                {getFieldDecorator('weichat')(<Input placeholder="输入微信号"/>)}
-                            </FormItem>
-                            <FormItem  {...multiFormLayout} label="身份证">
-                                {getFieldDecorator('identity')(<Input placeholder="输入身份证"/>)}
-                            </FormItem>
-                        </Form>
-                    </div>)
-                }
+                    <div key={this.props.rowData.id.toString()} className="formcontainer">
+                        <CustomerUpdateForm />
+                    </div>
+                    }
                     <div className="recordContainer">
                     <Tabs type="card" defaultActiveKey="1" onChange={this.onTabsChange}>
                         <TabPane tab="维护记录" key="1">
@@ -121,4 +145,4 @@ class CustomerUpdate extends Component {
         </div>)
     }
 }
-export default Form.create()(CustomerUpdate)
+export default Customer
