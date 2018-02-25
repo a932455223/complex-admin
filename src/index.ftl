@@ -7,6 +7,7 @@
   <meta content="yes" name="apple-mobile-web-app-capable">
   <meta content="yes" name="apple-touch-fullscreen">
   <meta content="telephone=no,email=no" name="format-detection">
+  <meta content="width=device-width,user-scalable=no" name="viewport" />
   <title>银行CRM系统</title>
 </head>
 <body>

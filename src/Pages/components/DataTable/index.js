@@ -184,6 +184,7 @@ export default class DataTable extends Component {
 	}
 
     rowClick(record,index){
+        console.log('row click user.')
         this.setState({isOpen:true,createModel:false,rowData:record})
     }
 
@@ -192,7 +193,15 @@ export default class DataTable extends Component {
     }
 
     addCustomer = ()=>{
-        this.setState({isOpen:true,createModel:true})
+        console.log('create user.')
+        this.setState({isOpen:true,createModel:true,rowData:{}})
+    }
+
+    refresh = ()=>{
+        this.setState({tableLoading:true})
+        request.Get('/customers').then((response)=>{
+            this.setState({dataSource:response.data,tableLoading:false})
+        })
     }
     render() {
         const rowSelection = {
@@ -242,7 +251,7 @@ export default class DataTable extends Component {
             </div>
             <Table loading={this.state.tableLoading} onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.id.toString()} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={this.state.dataSource} columns={columns} pagination={paginationConfig}/>
             <Docker open={this.state.isOpen}>
-                <CusomerCreate rowData={this.state.rowData} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
+                <CusomerCreate refresh={this.refresh} rowData={this.state.rowData} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
             </Docker>
         </div>)
     }

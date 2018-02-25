@@ -108,6 +108,22 @@ router.get('/customers',async (ctx,next)=>{
 
 })
 
+router.put('/customer/:id',async (ctx,next)=>{
+	let data = ctx.request.body
+	let sqlStatement = []
+	for(let key of Object.keys(data)){
+		sqlStatement.push(`${key}=?`)
+	}
+	let cmd = await ctx.db.prepare(`update customer set ${sqlStatement.join(',')} where id=?`,[...Object.values(data),parseInt(ctx.params.id)])
+	cmd.run()
+	ctx.body = {
+		code:200,
+		message:'success',
+		data:{}
+	}
+	await next()
+})
+
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)
