@@ -27,6 +27,8 @@ app.use(async (ctx,next) => {
 })
 
 app.use(webpackDevMiddleware(webpack(webpackConfig),{
+	hot:true,
+	historyApiFallback: true,
 	stats:{
 		colors:true
 	}

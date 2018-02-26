@@ -5,9 +5,7 @@ const path = require('path')
 const webpack = require('webpack');
 
 module.exports = {
-	entry:{
-		main:'./src/index.js'
-	},
+	entry:[ 'webpack-dev-middleware/client?http://localhost:3000','webpack/hot/only-dev-server','./src/index.js'],
 	output:{
 		publicPath:'/',
 		path:path.resolve(__dirname,'./dist'),
@@ -24,7 +22,8 @@ module.exports = {
 			use:[{
 				loader:'babel-loader',
 				options:{
-					presets:['babel-preset-es2015', 'babel-preset-react', 'babel-preset-stage-0']
+					presets:['babel-preset-es2015', 'babel-preset-react', 'babel-preset-stage-0'],
+					plugins: ["react-hot-loader/babel"]
 				}
 			}]
 		},

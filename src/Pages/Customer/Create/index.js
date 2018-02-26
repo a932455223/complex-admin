@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Icon, Input, message,Tabs} from 'antd'
 import request from '../../../utils/request.js'
 import BasicInfo from '../Basic/index'
+import FamilyInfo from '../Family/index'
 const TabPane = Tabs.TabPane
 const Fragment = React.Fragment
 
@@ -70,6 +71,7 @@ class Customer extends Component {
                     {this.props.rowData.id &&
                         <BasicInfo refresh={this.props.refresh} rowData={this.props.rowData} key={this.props.rowData.id.toString()} />
                     }
+                    
                     </div>
                     <div className="recordContainer">
                     <Tabs type="card" defaultActiveKey="1" onChange={this.onTabsChange}>
@@ -93,7 +95,9 @@ class Customer extends Component {
                     </Tabs>
                     </div>
                     </TabPane>
-                    <TabPane tab="家庭信息" key="familyInfo">fff</TabPane>
+                    <TabPane tab="家庭信息" key="familyInfo">
+                        <FamilyInfo/>
+                    </TabPane>
                     <TabPane tab="工作信息" key="workInfo">gggg</TabPane>
                 </Tabs>)
             }
