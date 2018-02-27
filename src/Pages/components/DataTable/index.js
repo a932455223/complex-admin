@@ -251,7 +251,7 @@ export default class DataTable extends Component {
             </div>
             <Table loading={this.state.tableLoading} onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.id.toString()} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={this.state.dataSource} columns={columns} pagination={paginationConfig}/>
             <Docker open={this.state.isOpen}>
-                <CusomerCreate refresh={this.refresh} rowData={this.state.rowData} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
+                <CusomerCreate refresh={this.refresh} rowData={this.state.rowData} key={this.state.rowData.id && this.state.rowData.id.toString()} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
             </Docker>
         </div>)
     }

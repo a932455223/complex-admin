@@ -5,11 +5,13 @@ const sqlite3 = require('co-sqlite3')
 const router = require('koa-router')()
 const logger = require('koa-logger')
 const bodyParse = require('koa-bodyparser')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 const _ = require('lodash')
 const app = new Koa()
 const port = 3000
 const webpack = require('webpack')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
+const middleware = require('koa-webpack')
 let webpackConfig = require('./webpack.config.js')
 app.use(logger())
 app.use(bodyParse())
@@ -26,13 +28,18 @@ app.use(async (ctx,next) => {
 	await next();
 })
 
-app.use(webpackDevMiddleware(webpack(webpackConfig),{
-	hot:true,
-	historyApiFallback: true,
-	stats:{
-		colors:true
-	}
-}))
+const compiler = webpack(webpackConfig)
+// app.use(webpackDevMiddleware(compiler,{
+// 	hot:true,
+// 	historyApiFallback: true,
+// 	stats:{
+// 		colors:true
+// 	}
+// }))
+//
+// app.use(webpackHotMiddleware(compiler))
+
+app.use(middleware(compiler,{publicPath:'/'}))
 
 app.use(async (ctx,next) => {
 	ctx.db = await sqlite3('./src/DataBase/crm.db')
@@ -126,6 +133,16 @@ router.put('/customer/:id',async (ctx,next)=>{
 	await next()
 })
 
+router.get('/customer/:id/faminlyInfo',async (ctx,next)=>{
+	let data = await ctx.db.all(`select * from customerRelative where customerId = ?`,[ctx.params.id])
+	ctx.body = {
+		code:200,
+		message:'success',
+		data:data
+	}
+
+	await next()
+})
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)

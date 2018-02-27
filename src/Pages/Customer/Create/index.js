@@ -1,31 +1,46 @@
-import React, {Component} from 'react'
-import {Icon, Input, message,Tabs} from 'antd'
+import React, {PureComponent} from 'react'
+import {Icon, Input, message,Tabs,Spin} from 'antd'
 import request from '../../../utils/request.js'
 import BasicInfo from '../Basic/index'
-import FamilyInfo from '../Family/index'
+import FamilyInfo from '../FamilyInfo/index'
 const TabPane = Tabs.TabPane
 const Fragment = React.Fragment
 
 
 
 
-class Customer extends Component {
+class Customer extends PureComponent {
     state = {
-        customerName: ''
+        customerName: '',
+        familyInfo:[],
+        familyLoading:false
     }
-    onTabsChange = (evt) =>{
-
+    onRecordChanged = (evt) =>{
+        console.log('tabs is changed')
     }
 
-    shouldComponentUpdate = (nextProps,nextState)=>{
-        if(nextProps.createModel || (nextProps.rowData.id && nextProps.rowData.id !==this.props.rowData.id)){
-            return true
+    onInfoChanged = (comKey) =>{
+        if(comKey === 'familyInfo' && this.state.familyInfo.length === 0){
+            this.setState({familyLoading:true})
+            request.Get(`/customer/${this.props.rowData.id}/faminlyInfo`)
+                .then((res)=>{
+                    this.setState({familyInfo:res.data.data,familyLoading:false})
+                })
         }
-        return false
     }
 
+    // shouldComponentUpdate = (nextProps,nextState)=>{
+    //     if(nextProps.createModel != this.props.createModel || (nextProps.rowData.id && nextProps.rowData.id !==this.props.rowData.id)){
+    //         return true
+    //     }
+    //     return false
+    // }
+
+    addFamily = () => {
+
+    }
     componentWillReceiveProps = () => {
-        console.log('com com go go go.')
+        console.log('customer create receive props')
     }
 
 
@@ -52,11 +67,12 @@ class Customer extends Component {
     }
 
     render() {
+        console.log(this.state.familyInfo)
         console.log(this.props.createModel)
         return (<div className="userInfo">
             <div className="header">
                 <div className="icon"><Icon type="user"/></div>
-                <span className="text">创建客户</span>
+                <span className="text">{this.props.createModel ? '创建客户':(this.props.rowData && this.props.rowData.name)}</span>
                 <div className="operation"><div onClick={this.onClose} className="close"><Icon type="close"/>关闭</div></div>
             </div>
             {
@@ -65,16 +81,16 @@ class Customer extends Component {
                     </div>
             }
             {
-                (!this.props.createModel) && (<Tabs defaultActivity="basicInfo">
+                (!this.props.createModel) && (<Tabs  onChange={this.onInfoChanged} defaultActivity="basicInfo">
                     <TabPane tab="基础信息"  key="basicInfo">
                     <div className="formcontainer">
                     {this.props.rowData.id &&
                         <BasicInfo refresh={this.props.refresh} rowData={this.props.rowData} key={this.props.rowData.id.toString()} />
                     }
-                    
+
                     </div>
                     <div className="recordContainer">
-                    <Tabs type="card" defaultActiveKey="1" onChange={this.onTabsChange}>
+                    <Tabs type="card" defaultActiveKey="1" onChange={this.onRecordChanged}>
                         <TabPane tab="维护记录" key="1">
                             <ul className="timeline">
                                 <li>
@@ -96,7 +112,17 @@ class Customer extends Component {
                     </div>
                     </TabPane>
                     <TabPane tab="家庭信息" key="familyInfo">
-                        <FamilyInfo/>
+                    <Spin spinning={this.state.familyLoading}>
+                        <div className="familyBox">
+                            {this.state.familyInfo.map((relative => <FamilyInfo key={relative.id.toString()} relativeData={relative}/>))}
+                            <div className="faminlyInfo add">
+                                <div className='box' onClick={this.addFamily}>
+                                    <Icon type="plus-circle-o" style={{fontSize:"40px"}} />
+                                    <p style={{paddingTop:'10px'}}>添加家庭成员</p>
+                                </div>
+                            </div>
+                        </div>
+                    </Spin>
                     </TabPane>
                     <TabPane tab="工作信息" key="workInfo">gggg</TabPane>
                 </Tabs>)

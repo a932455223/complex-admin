@@ -30,6 +30,7 @@
     "koa-logger": "^3.1.0",
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
+    "koa-webpack": "^2.0.3",
     "koa-webpack-dev-middleware": "^2.0.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
@@ -44,6 +45,7 @@
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-hot-middleware": "^2.21.0",
     "webpack-html-plugin": "^0.1.1"
   },
   "dependencies": {

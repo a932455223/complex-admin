@@ -7,7 +7,7 @@
 }
 @gray: rgb(230,230,230);
 @darkGray:#D2D2D2;
-
+@fontBlue:#69819A;
 #root,
 .ant-layout,
 body,
@@ -342,15 +342,61 @@ html {
         }
     }
 
-    .faminlyInfo{
-        width:40%;
-        box-sizing:border-box;
-        background:#FFFFFF;
-        .header{
-            background:@gray;
-        }
-        .content{
+    .familyBox{
+        display: flex;
+        min-height: 80px;
+        flex-flow: row wrap;
+        .faminlyInfo{
+            width:48%;
+            box-sizing:border-box;
+            background:#FFFFFF;
+            border-radius:6px;
+            overflow: hidden;
+            border:1px solid @darkGray;
+            margin-bottom:12px;
+            &:nth-child(even){
+                margin-left:12px;
+            }
+            .header{
+                background:@gray;
+                padding:12px;
+                display: flex;
+                .username{
+                    font-size:16px;
+                    font-weight: bold;
+                    margin-right:auto;
+                    padding-left:6px;
+                }
+                .operater{
+                    padding-right:8px;
+                    font-size:10px;
+                    color:@fontBlue;
+                    &:last-child{
+                        padding-right:0;
+                    }
+                }
+            }
+            .content{
+                background:#fff;
+                padding:12px;
+                p{
+                    span{
+                        display:inline-block;
+                        width:70px;
+                        color:@darkGray;
+                    }
+                }
+            }
 
+            &.add{
+                height:214px;
+                display: flex;
+                .box{
+                    margin:auto;
+                    text-align: center;
+                    cursor:pointer;
+                }
+            }
         }
     }
 }
