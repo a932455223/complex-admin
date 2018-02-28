@@ -5,6 +5,7 @@ const path = require('path')
 const webpack = require('webpack');
 
 module.exports = {
+	devtool:'cheap-source-map',
 	entry:[ 'webpack-hot-client/client', 'react-hot-loader/patch','./src/index.js'],
 	output:{
 		publicPath:'/',
