@@ -133,6 +133,22 @@ router.put('/customer/:id',async (ctx,next)=>{
 	await next()
 })
 
+router.put('/customer/:id/family',async (ctx,next)=>{
+	let params = ctx.request.body
+	let sqlStatement = []
+	for(let key of Object.keys(params)){
+		sqlStatement.push(`${key}=?`)
+	}
+	let cmd = await ctx.db.prepare(`update customerRelative set ${sqlStatement.join(',')} where id=?`,[...Object.values(params),parseInt(ctx.params.id)])
+	cmd.run()
+	ctx.body = {
+		code:200,
+		message:'success',
+		data:{}
+	}
+	await next()
+})
+
 router.get('/customer/:id/faminlyInfo',async (ctx,next)=>{
 	let data = await ctx.db.all(`select * from customerRelative where customerId = ?`,[ctx.params.id])
 	ctx.body = {

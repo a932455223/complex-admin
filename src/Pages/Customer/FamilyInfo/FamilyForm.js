@@ -1,11 +1,14 @@
 import React,{Component} from 'react'
 import {Input,Form,Icon} from 'antd'
+import request from '../../../utils/request'
 const FormItem = Form.Item
 class FamilyForm extends Component{
 
     save = (evt)=>{
             let data = this.props.form.getFieldsValue()
-            request.Put(`/customer/${this.props.relativeData.id}`,data)
+            request.Put(`/customer/${this.props.relativeData.id}/family`,data).then((res)=>{
+                console.log(res.data.data)
+            })
     }
 
     render(){
