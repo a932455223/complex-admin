@@ -16,7 +16,6 @@ export default class FamilyInfo extends Component{
     }
 
     onCancel = (evt) =>{
-        console.log('cancel')
         this.setState({model:'view'})
     }
     render(){
@@ -46,7 +45,7 @@ export default class FamilyInfo extends Component{
             </div>
         )
 
-        const form = <FamilyForm onCancel={this.onCancel} relativeData={relative}/>
+        const form = <FamilyForm loadFamily={this.props.loadFamily} onCancel={this.onCancel} relativeData={relative}/>
 
         return this.state.model === 'edit' ? form:view
     }

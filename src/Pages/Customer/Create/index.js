@@ -3,6 +3,7 @@ import {Icon, Input, message,Tabs,Spin} from 'antd'
 import request from '../../../utils/request.js'
 import BasicInfo from '../Basic/index'
 import FamilyInfo from '../FamilyInfo/index'
+import FamilyAdd from '../FamilyInfo/FamilyAdd'
 const TabPane = Tabs.TabPane
 const Fragment = React.Fragment
 
@@ -21,14 +22,17 @@ class Customer extends PureComponent {
 
     onInfoChanged = (comKey) =>{
         if(comKey === 'familyInfo' && this.state.familyInfo.length === 0){
-            this.setState({familyLoading:true})
-            request.Get(`/customer/${this.props.rowData.id}/faminlyInfo`)
-                .then((res)=>{
-                    this.setState({familyInfo:res.data.data,familyLoading:false})
-                })
+            this.loadFamily()
         }
     }
 
+    loadFamily = ()=>{
+        this.setState({familyLoading:true})
+        request.Get(`/customer/${this.props.rowData.id}/faminlyInfo`)
+            .then((res)=>{
+                this.setState({familyInfo:res.data.data,familyLoading:false})
+            })
+    }
     // shouldComponentUpdate = (nextProps,nextState)=>{
     //     if(nextProps.createModel != this.props.createModel || (nextProps.rowData.id && nextProps.rowData.id !==this.props.rowData.id)){
     //         return true
@@ -114,13 +118,8 @@ class Customer extends PureComponent {
                     <TabPane tab="家庭信息" key="familyInfo">
                     <Spin spinning={this.state.familyLoading}>
                         <div className="familyBox">
-                            {this.state.familyInfo.map((relative => <FamilyInfo key={relative.id.toString()} relativeData={relative}/>))}
-                            <div className="faminlyInfo add">
-                                <div className='box' onClick={this.addFamily}>
-                                    <Icon type="plus-circle-o" style={{fontSize:"40px"}} />
-                                    <p style={{paddingTop:'10px'}}>添加家庭成员</p>
-                                </div>
-                            </div>
+                            {this.state.familyInfo.map((relative => <FamilyInfo loadFamily={this.loadFamily} key={relative.id.toString()} relativeData={relative}/>))}
+                            <FamilyAdd />
                         </div>
                     </Spin>
                     </TabPane>

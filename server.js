@@ -133,7 +133,7 @@ router.put('/customer/:id',async (ctx,next)=>{
 	await next()
 })
 
-router.put('/customer/:id/family',async (ctx,next)=>{
+router.put('/family/:id',async (ctx,next)=>{
 	let params = ctx.request.body
 	let sqlStatement = []
 	for(let key of Object.keys(params)){
