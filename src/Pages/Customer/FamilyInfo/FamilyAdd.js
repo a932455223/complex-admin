@@ -3,6 +3,12 @@ import FamilyForm from './FamilyForm'
 import {Icon,Form,Input} from 'antd'
 const FormItem = Form.Item
 class FamilyAddFormTemplate extends Component{
+
+    save = (evt) =>{
+        let {getFieldsValue} = this.props.form
+        let data = getFieldsValue()
+        console.log(data)
+    }
     render(){
         const {getFieldDecorator} = this.props.form
         return (
@@ -38,13 +44,17 @@ class FamilyAddFormTemplate extends Component{
 const FamilyAddForm = Form.create()(FamilyAddFormTemplate)
 
 export default class FamilyAdd extends Component{
+
     state = {
-        model:'add'
+        model:'add',
     }
     addFamily = ()=>{
         this.setState({model:'form'})
     }
 
+    onCancel = ()=>{
+        this.setState({model:'add'})
+    }
     render(){
             const Add = (
             <div className="faminlyInfo add">
@@ -54,6 +64,6 @@ export default class FamilyAdd extends Component{
                 </div>
             </div>)
 
-            return (this.state.model === 'add' ? Add:<FamilyAddForm />)
+            return (this.state.model === 'add' ? Add:<FamilyAddForm onCancel={this.onCancel}/>)
     }
 }
