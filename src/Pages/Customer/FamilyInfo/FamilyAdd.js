@@ -17,6 +17,8 @@ class FamilyAddFormTemplate extends Component{
                     <div className="header">
                         <FormItem>
                             {getFieldDecorator('name',{
+                                require:true,
+                                message:'姓名不能为空'
                             })(<Input  prefix={<Icon type="user" />} className='userInput'/>)}
                         </FormItem>
                         <span onClick={this.props.onCancel} style={{marginLeft:'auto'}} className="operater">取消</span>
@@ -24,7 +26,10 @@ class FamilyAddFormTemplate extends Component{
                     </div>
                     <div className="content">
                             <FormItem label='关&nbsp;&nbsp;&nbsp;系'>
-                                {getFieldDecorator('relation')(<Input />)}
+                                {getFieldDecorator('relation',{
+                                    require:true,
+                                    message:'关系不能为空'
+                                })(<Input />)}
                             </FormItem>
                             <FormItem label='电&nbsp;&nbsp;&nbsp;话'>
                                 {getFieldDecorator('phoneNumber')(<Input />)}
