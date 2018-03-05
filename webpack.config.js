@@ -23,7 +23,7 @@ module.exports = {
 			use:[{
 				loader:'babel-loader',
 				options:{
-					presets:[['es2015',{ 'modules': false}], 'react', 'stage-0'],
+					presets:[['env',{ 'modules': false,'targets':["last 2 versions", "safari >= 7"]}], 'react', 'stage-0'],
 					plugins: ["react-hot-loader/babel"]
 				}
 			}]
