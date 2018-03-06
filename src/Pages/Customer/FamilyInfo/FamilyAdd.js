@@ -1,13 +1,17 @@
 import React,{Component} from 'react'
 import FamilyForm from './FamilyForm'
-import {Icon,Form,Input} from 'antd'
+import {Icon,Form,Input,message} from 'antd'
+import request from '../../../utils/request.js'
 const FormItem = Form.Item
 class FamilyAddFormTemplate extends Component{
 
     save = (evt) =>{
         let {getFieldsValue} = this.props.form
         let data = getFieldsValue()
-        console.log(data)
+        data.customerId = this.props.customerId
+        request.Post('/faminlyInfo',data).then(()=>{
+            message.success('创建成功')
+        })
     }
     render(){
         const {getFieldDecorator} = this.props.form

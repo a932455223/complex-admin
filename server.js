@@ -159,6 +159,19 @@ router.get('/customer/:id/faminlyInfo',async (ctx,next)=>{
 
 	await next()
 })
+
+router.post('/faminlyInfo',async (ctx,next) => {
+	let params = ctx.request.body
+	let keys = Object.keys(params)
+	let cmd = await ctx.db.prepare(`insert into customerRelative(${keys.join(',')}) values(${new Array(keys.length).fill('?')})`,Object.values(params))
+	cmd.run()
+	ctx.body = {
+		code:200,
+		message:'success',
+		data:{}
+	}
+	await next()
+})
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)

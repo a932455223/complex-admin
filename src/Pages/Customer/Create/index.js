@@ -119,7 +119,7 @@ class Customer extends PureComponent {
                     <Spin spinning={this.state.familyLoading}>
                         <div className="familyBox">
                             {this.state.familyInfo.map((relative => <FamilyInfo loadFamily={this.loadFamily} key={relative.id.toString()} relativeData={relative}/>))}
-                            <FamilyAdd />
+                            <FamilyAdd customerId={this.props.rowData.id}/>
                         </div>
                     </Spin>
                     </TabPane>
