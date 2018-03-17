@@ -9,7 +9,8 @@ class FamilyAddFormTemplate extends Component{
         let {getFieldsValue} = this.props.form
         let data = getFieldsValue()
         data.customerId = this.props.customerId
-        request.Post('/faminlyInfo',data).then(()=>{
+        console.log(data)
+        request.Post(`/customer/${data.customerId}/faminlyInfo`,data).then(()=>{
             message.success('创建成功')
         })
     }
@@ -73,6 +74,6 @@ export default class FamilyAdd extends Component{
                 </div>
             </div>)
 
-            return (this.state.model === 'add' ? Add:<FamilyAddForm onCancel={this.onCancel}/>)
+            return (this.state.model === 'add' ? Add:<FamilyAddForm {...this.props} onCancel={this.onCancel}/>)
     }
 }

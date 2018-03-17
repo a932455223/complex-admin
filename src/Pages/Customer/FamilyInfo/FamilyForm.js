@@ -7,7 +7,6 @@ class FamilyForm extends Component{
     save = (evt)=>{
             let data = this.props.form.getFieldsValue()
             request.Put(`/family/${this.props.relativeData.id}`,data).then((res)=>{
-                console.log(res.data)
                 if(res.data.code === 200){
                     this.props.loadFamily()
                     this.props.onCancel()

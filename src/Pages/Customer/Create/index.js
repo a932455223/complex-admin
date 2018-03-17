@@ -39,10 +39,7 @@ class Customer extends PureComponent {
     //     }
     //     return false
     // }
-
-    addFamily = () => {
-
-    }
+    
     componentWillReceiveProps = () => {
         console.log('customer create receive props')
     }
@@ -119,7 +116,7 @@ class Customer extends PureComponent {
                     <Spin spinning={this.state.familyLoading}>
                         <div className="familyBox">
                             {this.state.familyInfo.map((relative => <FamilyInfo loadFamily={this.loadFamily} key={relative.id.toString()} relativeData={relative}/>))}
-                            <FamilyAdd customerId={this.props.rowData.id}/>
+                            <FamilyAdd loadFamily={this.loadFamily} customerId={this.props.rowData.id}/>
                         </div>
                     </Spin>
                     </TabPane>
