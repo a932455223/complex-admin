@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
-import {Icon} from 'antd'
+import {Icon,message} from 'antd'
 import FamilyForm from './FamilyForm'
+import request from '../../../utils/request'
 
 export default class FamilyInfo extends Component{
     state = {
@@ -8,7 +9,10 @@ export default class FamilyInfo extends Component{
     }
 
     onDelete = (evt)=>{
-
+        request.Delete(`/family/${this.props.relativeData.id}`).then((res)=>{
+            message.success('操作成功!')
+            this.props.loadFamily()
+        })
     }
 
     onEdit = (evt) =>{

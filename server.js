@@ -149,6 +149,16 @@ router.put('/family/:id',async (ctx,next)=>{
 	await next()
 })
 
+router.delete('/family/:id',async (ctx,next)=>{
+	let cmd = await ctx.db.prepare(`delete from customerRelative where id=?`,[ctx.params.id])
+	cmd.run()
+	ctx.body = {
+		code:200,
+		message:'success',
+		data:{}
+	}
+	await next()
+})
 router.get('/customer/:id/faminlyInfo',async (ctx,next)=>{
 	let data = await ctx.db.all(`select * from customerRelative where customerId = ?`,[ctx.params.id])
 	ctx.body = {
