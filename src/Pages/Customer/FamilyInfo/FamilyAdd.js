@@ -9,9 +9,10 @@ class FamilyAddFormTemplate extends Component{
         let {getFieldsValue} = this.props.form
         let data = getFieldsValue()
         data.customerId = this.props.customerId
-        console.log(data)
         request.Post(`/customer/${data.customerId}/faminlyInfo`,data).then(()=>{
             message.success('创建成功')
+            this.props.loadFamily()
+            this.props.onCancel()
         })
     }
     render(){
