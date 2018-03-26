@@ -15,7 +15,8 @@ export default class Main extends Component{
 
 	render(){
     const navKeys = location.pathname.substr(1).split('/')
-		return (<Layout>
+		return (
+  <Layout>
     <Header className="header">
       <div className="logo" />
       <Menu

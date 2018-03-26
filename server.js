@@ -22,7 +22,7 @@ const filterMapping = {
 
 
 app.use(async (ctx,next) => {
-	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branch/list','/customer/focus'].includes(ctx.path)){
+	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branch/list','/customer/focus','/customer/dddd'].includes(ctx.path)){
 		ctx.path = '/'
 	}
 	await next();
