@@ -12,6 +12,7 @@ const port = 3000
 const webpack = require('webpack')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 const middleware = require('koa-webpack')
+const serve = require('koa-static')
 let webpackConfig = require('./webpack.config.js')
 app.use(logger())
 app.use(bodyParse())
@@ -20,6 +21,7 @@ const filterMapping = {
 	customer:[1,2,3]
 }
 
+app.use(serve('.'))
 
 app.use(async (ctx,next) => {
 	if(ctx.method === 'GET' && ['/','/login','/customer/my','/branch/list','/customer/focus','/customer/dddd'].includes(ctx.path)){

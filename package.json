@@ -30,6 +30,7 @@
     "koa-logger": "^3.1.0",
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
+    "koa-static": "^5.0.0",
     "koa-webpack": "^2.0.3",
     "koa-webpack-dev-middleware": "^2.0.2",
     "less": "^2.7.3",
