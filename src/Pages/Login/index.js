@@ -3,6 +3,12 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd'
 const FormItem = Form.Item
 
 class Login extends Component{
+	handleSubmit = (e)=>{
+		this.props.form.validateFields((()=>{
+			console.log('has errors.')
+		}))
+	}
+	
 	render(){
 		const { getFieldDecorator } = this.props.form
 		return (
@@ -17,7 +23,7 @@ class Login extends Component{
 					</FormItem>
 					<FormItem>
 						{getFieldDecorator('password', {
-							rules: [{ required: true, message: 'Please input your Password!' }],
+							rules: [{ required: true, message: '请输入密码' }],
 						})(
 							<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
 						)}
@@ -29,10 +35,10 @@ class Login extends Component{
 						})(
 							<Checkbox>记住密码</Checkbox>
 						)}
-						 <a href="">注册</a>
+						<a style={{ float: "right"}} href="">注 册</a>
 					</FormItem>
 					<FormItem>
-						<Button type="primary" htmlType="submit" className="login-form-button">登陆</Button>
+						<Button onClick={this.handleSubmit} type="primary" htmlType="button" className="login-form-button">登陆</Button>
 					</FormItem>
 
 				</Form>
