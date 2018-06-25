@@ -118,9 +118,10 @@ export default class DataTable extends Component {
         tableLoading:false
     }
 
-    onSelectChange = (keys,rows) => {
-        console.log(keys)
+    onSelectChange = (selectedRowKeys,rows) => {
+        console.log(selectedRowKeys)
         console.log(rows)
+        this.setState({ selectedRowKeys })
     }
 
     onTableChange = (pagination, filter, sorter) => {
@@ -249,7 +250,7 @@ export default class DataTable extends Component {
 	                </div>)
 				})}
             </div>
-            <Table loading={this.state.tableLoading} onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.id.toString()} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={this.state.dataSource} columns={columns} pagination={paginationConfig}/>
+            <Table rowSelection={rowSelection} loading={this.state.tableLoading} onRow={(record,index)=>({onClick:this.rowClick.bind(this,record,index)})}  rowKey={record => record.id.toString()} bordered={true} className="yptable" onChange={this.onTableChange} rowSelection={rowSelection} dataSource={this.state.dataSource} columns={columns} pagination={paginationConfig}/>
             <Docker open={this.state.isOpen}>
                 <CusomerCreate refresh={this.refresh} rowData={this.state.rowData} key={this.state.rowData.id && this.state.rowData.id.toString()} createModel={this.state.createModel} closeDocker={this.closeDocker}/>
             </Docker>

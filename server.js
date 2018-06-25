@@ -5,6 +5,7 @@ const sqlite3 = require('co-sqlite3')
 const router = require('koa-router')()
 const logger = require('koa-logger')
 const bodyParse = require('koa-bodyparser')
+require('colors')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const _ = require('lodash')
 const app = new Koa()
@@ -41,16 +42,21 @@ const compiler = webpack(webpackConfig)
 //
 // app.use(webpackHotMiddleware(compiler))
 
+
+
 app.use(middleware(compiler,{publicPath:'/'}))
+
+router.get('/',async (ctx, next) => {
+	ctx.body = ctx.webpack.fileSystem.readFileSync('./dist/index.html')
+	await next()
+})
 
 app.use(async (ctx,next) => {
 	ctx.db = await sqlite3('./src/DataBase/crm.db')
 	await next()
 })
 
-router.get('/',ctx => {
-		ctx.body = ctx.webpack.fileSystem.readFileSync('./dist/index.html')
-})
+
 
 // sqlite3('./src/DataBase/crm.db').then((db)=>{
 // 	return db.prepare('insert into user(username,password,createTime) values(?,?,?)',['tom','123456',Date().toString()])
@@ -189,4 +195,4 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(port)
 
-console.log('server run at ' + port)
+console.log(`server run at ${port}`.green)

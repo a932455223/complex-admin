@@ -1,3 +1,3 @@
 import React from 'react'
-let NotFound = ()=> <div>not found</div>
+let NotFound = ()=> <div>react router doesn't find the path.</div>
 export default NotFound
